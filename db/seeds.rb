@@ -5,8 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Interest.find_or_create_by(name: "football")
-Interest.find_or_create_by(name: "drinking")
+football = Interest.find_or_create_by(name: "football")
+drinking = Interest.find_or_create_by(name: "drinking")
 Interest.find_or_create_by(name: "social activism")
 Interest.find_or_create_by(name: "film making")
 Interest.find_or_create_by(name: "kite surfing")
@@ -24,5 +24,8 @@ Interest.find_or_create_by(name: "traveling")
 Interest.find_or_create_by(name: "teaching")
 Interest.find_or_create_by(name: "cooking")
 Interest.find_or_create_by(name: "slapping it on the dom")
-User.find_or_create_by(name: "Matt", password: "123")
-User.find_or_create_by(name: "Ariel", password: "123")
+matt = User.create(name: "Matt", password: "123")
+ariel = User.create(name: "Ariel", password: "123")
+
+matt.interests << football
+matt.interests << drinking
