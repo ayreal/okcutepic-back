@@ -6,6 +6,11 @@ class Api::V1::UsersController < ApplicationController
       render json: @users.to_json(include: [:interests, :matches])
     end
 
+    def create
+      @user = User.create(user_params)
+      render json: @user
+    end
+
     def update
       @user = User.find(params[:id])
 
@@ -19,7 +24,7 @@ class Api::V1::UsersController < ApplicationController
 
     private
     def user_params
-      params.permit(:name, :bio)
+      params.require(:user).permit(:name, :bio, :username, :gender, :gender_choice, :age, :location, :photo, :interests)
     end
 
   end
