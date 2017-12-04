@@ -6,11 +6,14 @@ class Api::V1::InterestsController < ApplicationController
   end
 
   def create
-    @interest = Interest.find_or_create_by(name: params[:name])
+    params["_json"].each do |interest|
+      @interest = Interest.find_or_create_by(name: interest)
+      render json: @interest
+    end
   end
 
   private
   def user_params
-    params.permit(:name)
+    params.require(:interests).permit(:name)
   end
 end

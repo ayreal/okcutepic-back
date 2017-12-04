@@ -8,6 +8,11 @@ class Api::V1::UsersController < ApplicationController
 
     def create
       @user = User.create(user_params)
+
+      params["interests"].each do |interest|
+        @user.interests << Interest.find_or_create_by(name: interest)
+      end
+      @user.save
       render json: @user
     end
 
@@ -24,7 +29,7 @@ class Api::V1::UsersController < ApplicationController
 
     private
     def user_params
-      params.require(:user).permit(:name, :bio, :username, :gender, :gender_choice, :age, :location, :photo, :interests)
+      params.require(:user).permit(:name, :bio, :username, :gender, :gender_choice, :age, :location, :photo, :interests, :password)
     end
 
   end
