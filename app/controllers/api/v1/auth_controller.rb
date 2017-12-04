@@ -23,7 +23,7 @@ class Api::V1::AuthController < ApplicationController
   end
 
   def show
-    byebug
+    #byebug
     if logged_in?
       # render json for current users
     else
