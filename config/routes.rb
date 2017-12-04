@@ -4,7 +4,7 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :create,:update]
       resources :interests, only: [:index, :create]
       post '/auth', to: 'auth#create'
-      get '/current_user', to 'auth#show'
+      get '/current_user', to: 'auth#show'
     end
   end
 end

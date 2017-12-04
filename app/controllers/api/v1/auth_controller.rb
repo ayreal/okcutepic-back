@@ -21,12 +21,13 @@ def create
     render json: {error: "Could not authorize this user"}, status: 401
   end
 end
-#
-# def show
-#   if logged_in?
-#     # render json for current users
-#   else
-#     # render json error
-# end
-#
+
+def show
+  byebug
+  if logged_in?
+    # render json for current users
+  else
+    # render json error
+end
+
 end
