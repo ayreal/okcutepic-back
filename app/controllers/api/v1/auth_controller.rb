@@ -10,6 +10,7 @@ def create
   # issue user a token
     render json: {
       id: user.id,
+      name: user.name,
       username:user.username,
       gender_choice: user.gender_choice,
       interests: user.interests,
@@ -17,7 +18,7 @@ def create
       location: user.location
     }
   else
-    render json: {error: "User not found"}, status: 401
+    render json: {error: "Could not authorize this user"}, status: 401
   end
 end
 #
