@@ -1,15 +1,19 @@
 class Api::V1::MatchesController < ApplicationController
 
+    def index
+      @matches = Match.all
 
+      render json: @matches
+    end
 
     def create
       current_user = User.find_by(id: params[:currentUserId])
       liked_user = User.find_by(id: params[:id])
       a = current_user.matches.find_or_create_by(match_id: liked_user.id)
-      byebug
-      b = liked_user.matches.find_by(match_id: current_user.id)
+      b = Match.find_by(match_id: current_user.id)
 
       if b
+        #byebug
         a.mutual = true
         b.mutual = true
       end
