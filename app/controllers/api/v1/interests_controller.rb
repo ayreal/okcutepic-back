@@ -6,10 +6,12 @@ class Api::V1::InterestsController < ApplicationController
   end
 
   def create
+    @arr =[]
     params["_json"].each do |interest|
       @interest = Interest.find_or_create_by(name: interest)
-      render json: @interest
+      @arr << @interest
     end
+    render json: @arr
   end
 
   private
