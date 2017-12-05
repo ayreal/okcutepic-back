@@ -23,11 +23,21 @@ class Api::V1::AuthController < ApplicationController
   end
 
   def show
-    #byebug
-    if logged_in?
-      # render json for current users
+    token = request.headers['Authorization']
+    user = User.find_by(id: token)
+    if user && user.authenticate(params[:password])
+    # issue user a token
+      render json: {
+        id: user.id,
+        name: user.name,
+        username:user.username,
+        gender_choice: user.gender_choice,
+        interests: user.interests,
+        matches: user.matches,
+        location: user.location
+      }
     else
-      # render json error
+      render json: {error: "Could not find this user"}, status: 401
     end
 
   end
