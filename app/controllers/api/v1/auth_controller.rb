@@ -8,6 +8,9 @@ class Api::V1::AuthController < ApplicationController
     user = User.find_by(username: params[:username])
     if user && user.authenticate(params[:password])
     # issue user a token
+
+    # you have to take the user_id and encode it and return to React
+    # then store it in localStorage
       render json: {
         id: user.id,
         name: user.name,
