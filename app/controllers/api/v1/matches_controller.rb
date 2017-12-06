@@ -21,7 +21,10 @@ class Api::V1::MatchesController < ApplicationController
 
 
      private
-
+     # def decoded_token
+     #   JWT.decode(payload, ENV["MY_SECRET"], ENV["AYREAL"])
+     #
+     # end
     # def user_params
     #   params.require(:user).permit(:name, :bio, :username, :gender, :gender_choice, :age, :location, :photo, :interests, :password)
     # end
