@@ -1,4 +1,4 @@
-#require 'jwt'
+# require 'jwt'
 class Api::V1::AuthController < ApplicationController
 
   # Neets JWT Token https://jwt.io/
@@ -10,14 +10,15 @@ class Api::V1::AuthController < ApplicationController
 
     user = User.find_by(username: params[:auth][:username])
     if user && user.authenticate(params[:auth][:password])
-      byebug
+      # byebug
     # issue user a token
-      payload = {user_id: user.id, username: user.username}
+      payload = {user_id: user.id}
+      # NameError (uninitialized constant Api::V1::AuthController::JWT):
       token = issue_token(payload)
 
     # you have to take the user_id and encode it and return to React
     # then store it in localStorage
-      render json: { token: token }
+      render json: { token: token , currentUser: user}
 
 
     else
@@ -45,9 +46,10 @@ class Api::V1::AuthController < ApplicationController
     end
 
     private
-    def issue_token(payload)
-      JWT.encode(payload, ENV["MY_SECRET"], ENV["AYREAL"])
-    end
+    # def issue_token(payload)
+    #   # byebug
+    #   JWT.encode(payload, ENV["MY_SECRET"], ENV["AYREAL"])
+    # end
 
   end
 end
