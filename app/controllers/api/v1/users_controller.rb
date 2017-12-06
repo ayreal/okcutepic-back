@@ -18,7 +18,10 @@ class Api::V1::UsersController < ApplicationController
     def show
       @user = User.find_by(id: params[:id])
       @mutual = @user.matches.where(mutual: true)
-      render json: @mutual
+      @matches = @mutual.map do |match|
+        User.find_by(id: match.match_id)
+      end
+      render json: @matches
     end
 
     def update
