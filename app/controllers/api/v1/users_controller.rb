@@ -15,6 +15,11 @@ class Api::V1::UsersController < ApplicationController
       render json: @user
     end
 
+    def show
+      @user = User.find_by(id: params[:id])
+      render json: @user.matches
+    end
+
     def update
       @user = User.find(params[:id])
 
