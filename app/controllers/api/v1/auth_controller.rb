@@ -8,18 +8,14 @@ class Api::V1::AuthController < ApplicationController
     user = User.find_by(username: params[:username])
     if user && user.authenticate(params[:password])
     # issue user a token
+      payload = {user_id: user.id}
+      token = issue_token(payload)
 
     # you have to take the user_id and encode it and return to React
     # then store it in localStorage
-      render json: {
-        id: user.id,
-        name: user.name,
-        username:user.username,
-        gender_choice: user.gender_choice,
-        interests: user.interests,
-        matches: user.matches,
-        location: user.location
-      }
+      render json: { jwt: token, yay: true }
+      
+
     else
       render json: {error: "Could not authorize this user"}, status: 401
     end

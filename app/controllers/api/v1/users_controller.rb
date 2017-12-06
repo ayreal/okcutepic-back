@@ -11,6 +11,9 @@ class Api::V1::UsersController < ApplicationController
       params["user"]["interests"].each do |interest|
         @user.interests << Interest.find_or_create_by(name: interest)
       end
+      payload = {:access_token => "cats"}
+      token = JWT.encode(payload, ENV["MY_SECRET"], ENV["AYREAL"])
+      @user.update(access_token: token)
       @user.save
       render json: @user
     end
