@@ -27,11 +27,12 @@ class Api::V1::AuthController < ApplicationController
   end
 
   def show
-    byebug
     token = request.headers['Authorization']
-    user = User.find_by(id: token)
-    if user && user.authenticate(params[:password])
-    # issue user a token
+    decoded_token =  JWT.decode(token, ENV['MY_SECRET'], true, { :algorithm => ENV['AYREAL'] })
+    # => [{"user_id"=>23}, {"alg"=>"HS256"}]
+    user_id = decoded_token.first['user_id']
+    user = User.find_by(id: user_id)
+    if user
       render json: {
         id: user.id,
         name: user.name,
@@ -44,12 +45,6 @@ class Api::V1::AuthController < ApplicationController
     else
       render json: {error: "Could not find this user. Username or password is incorrect."}, status: 401
     end
-
-    private
-    # def issue_token(payload)
-    #   # byebug
-    #   JWT.encode(payload, ENV["MY_SECRET"], ENV["AYREAL"])
-    # end
 
   end
 end
