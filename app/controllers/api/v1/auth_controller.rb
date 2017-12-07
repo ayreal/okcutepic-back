@@ -1,7 +1,6 @@
 # require 'jwt'
 class Api::V1::AuthController < ApplicationController
 
-  # Neets JWT Token https://jwt.io/
   # Neets JWT gem in gamfile https://github.com/jwt/ruby-jwt
   # generate secret with rake secret
   # Hide the secret by including in your gitignore with figaro gem and replacing in code with ENV['secret']
