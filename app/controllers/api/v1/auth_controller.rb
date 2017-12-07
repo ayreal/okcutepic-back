@@ -27,7 +27,7 @@ class Api::V1::AuthController < ApplicationController
   end
 
   def show
-    byebug
+    # byebug
     token = request.headers['Authorization']
     user = User.find_by(id: token)
     if user && user.authenticate(params[:password])
